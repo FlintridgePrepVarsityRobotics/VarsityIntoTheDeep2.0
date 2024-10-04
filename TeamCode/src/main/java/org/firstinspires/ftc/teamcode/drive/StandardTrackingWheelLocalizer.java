@@ -29,7 +29,7 @@ import java.util.List;
 public class StandardTrackingWheelLocalizer extends ThreeTrackingWheelLocalizer {
     public static double TICKS_PER_REV = 537.6;
     public static double WHEEL_RADIUS = 1.4763; // in
-    public static double GEAR_RATIO = 80; // output (wheel) speed / input (encoder) speed
+    public static double GEAR_RATIO = 12; // output (wheel) speed / input (encoder) speed
 
     public static double LATERAL_DISTANCE = 5; // in; distance between the left and right wheels
     public static double FORWARD_OFFSET = 3; // in; offset of the lateral wheel
