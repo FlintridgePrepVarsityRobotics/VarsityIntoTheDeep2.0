@@ -97,10 +97,10 @@ public class SampleMecanumDrive extends MecanumDrive {
 //                DriveConstants.LOGO_FACING_DIR, DriveConstants.USB_FACING_DIR));
 //        imu.initialize(parameters);
 
-        leftFront = hardwareMap.get(DcMotorEx.class, "fLeftWheel");
-        leftRear = hardwareMap.get(DcMotorEx.class, "bLeftWheel");
-        rightRear = hardwareMap.get(DcMotorEx.class, "bRightWheel");
-        rightFront = hardwareMap.get(DcMotorEx.class, "fRightWheel");
+        leftFront = hardwareMap.get(DcMotorEx.class, "leftFront");
+        leftRear = hardwareMap.get(DcMotorEx.class, "leftRear");
+        rightRear = hardwareMap.get(DcMotorEx.class, "rightRear");
+        rightFront = hardwareMap.get(DcMotorEx.class, "rightFront");
 
         motors = Arrays.asList(leftFront, leftRear, rightRear, rightFront);
 
@@ -131,8 +131,20 @@ public class SampleMecanumDrive extends MecanumDrive {
         //List<Integer> lastTrackingEncPositions = new ArrayList<>();
        // List<Integer> lastTrackingEncVels = new ArrayList<>();
 
+       // setLocalizer(new StandardTrackingWheelLocalizer(hardwareMap, lastTrackingEncPositions, lastTrackingEncVels));
+        /* About line 131 in SampleMecanumDrive.java */
+
+        // Assuming you're getting the encoder positions and velocities from your hardware
+
+
+// Initialize StandardTrackingWheelLocalizer with the required arguments
         setLocalizer(new StandardTrackingWheelLocalizer(hardwareMap, lastTrackingEncPositions, lastTrackingEncVels));
 
+
+// TODO: if desired, use setLocalizer() to change the localization method
+// for instance, setLocalizer(new ThreeTrackingWheelLocalizer(...));
+
+       // setLocalizer(new StandardTrackingWheelLocalizer(hardwareMap));
 
         trajectorySequenceRunner = new TrajectorySequenceRunner(
                 follower, HEADING_PID, batteryVoltageSensor,
