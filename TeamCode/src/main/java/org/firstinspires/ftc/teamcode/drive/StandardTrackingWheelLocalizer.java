@@ -69,6 +69,22 @@ public class StandardTrackingWheelLocalizer extends ThreeTrackingWheelLocalizer 
     public static double encoderTicksToInches(double ticks) {
         return WHEEL_RADIUS * 2 * Math.PI * GEAR_RATIO * ticks / TICKS_PER_REV;
     }
+    public List<Integer> getWheelPositionss() {
+        int leftPos = leftEncoder.getCurrentPosition();
+        int rightPos = rightEncoder.getCurrentPosition();
+        int frontPos = frontEncoder.getCurrentPosition();
+
+        lastEncPositions.clear();
+        lastEncPositions.add(leftPos);
+        lastEncPositions.add(rightPos);
+        lastEncPositions.add(frontPos);
+
+        return Arrays.asList(
+                leftPos,
+                rightPos,
+                frontPos
+        );
+    }
 
     @NonNull
     @Override
@@ -89,6 +105,9 @@ public class StandardTrackingWheelLocalizer extends ThreeTrackingWheelLocalizer 
         );
     }
 
+
+
+
     @NonNull
     @Override
     public List<Double> getWheelVelocities() {
@@ -107,4 +126,5 @@ public class StandardTrackingWheelLocalizer extends ThreeTrackingWheelLocalizer 
                 encoderTicksToInches(frontVel) * Y_MULTIPLIER
         );
     }
+
 }

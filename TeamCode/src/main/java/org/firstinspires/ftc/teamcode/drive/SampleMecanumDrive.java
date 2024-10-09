@@ -30,6 +30,7 @@ import org.firstinspires.ftc.teamcode.trajectorysequence.TrajectorySequence;
 import org.firstinspires.ftc.teamcode.trajectorysequence.TrajectorySequenceBuilder;
 import org.firstinspires.ftc.teamcode.trajectorysequence.TrajectorySequenceRunner;
 import org.firstinspires.ftc.teamcode.util.LynxModuleUtil;
+import org.firstinspires.ftc.teamcode.drive.StandardTrackingWheelLocalizer;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -135,10 +136,12 @@ public class SampleMecanumDrive extends MecanumDrive {
         /* About line 131 in SampleMecanumDrive.java */
 
         // Assuming you're getting the encoder positions and velocities from your hardware
+        // Method to convert a double array to an int array
+
 
 
 // Initialize StandardTrackingWheelLocalizer with the required arguments
-        setLocalizer(new StandardTrackingWheelLocalizer(hardwareMap, lastTrackingEncPositions, lastTrackingEncVels));
+        setLocalizer(new StandardTrackingWheelLocalizer(hardwareMap, convertToIntegerList(getWheelPositions()), convertToIntegerList(getWheelVelocities())));
 
 
 // TODO: if desired, use setLocalizer() to change the localization method
@@ -152,8 +155,19 @@ public class SampleMecanumDrive extends MecanumDrive {
         );
     }
 
+
     public TrajectoryBuilder trajectoryBuilder(Pose2d startPose) {
         return new TrajectoryBuilder(startPose, VEL_CONSTRAINT, ACCEL_CONSTRAINT);
+    }
+    public static List<Integer> convertToIntegerList(List<Double> doubleList) {
+        List<Integer> intList = new ArrayList<>();  // Create a new List to hold Integer values
+
+        // Iterate through the List<Double> and cast each element to int
+        for (Double d : doubleList) {
+            intList.add(d.intValue());  // Convert Double to int using intValue() method
+        }
+
+        return intList;  // Return the List<Integer>
     }
 
     public TrajectoryBuilder trajectoryBuilder(Pose2d startPose, boolean reversed) {
