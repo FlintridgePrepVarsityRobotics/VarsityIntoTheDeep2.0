@@ -77,7 +77,8 @@ public class SampleMecanumDrive extends MecanumDrive {
 
     private List<Integer> lastEncPositions = new ArrayList<>();
     private List<Integer> lastEncVels = new ArrayList<>();
-
+    List<Integer> lastTrackingEncPositions = new ArrayList<>();
+    List<Integer> lastTrackingEncVels = new ArrayList<>();
     public SampleMecanumDrive(HardwareMap hardwareMap) {
         super(kV, kA, kStatic, TRACK_WIDTH, TRACK_WIDTH, LATERAL_MULTIPLIER);
 
@@ -123,8 +124,7 @@ public class SampleMecanumDrive extends MecanumDrive {
 
         // TODO: reverse any motors using DcMotor.setDirection()
 
-        List<Integer> lastTrackingEncPositions = new ArrayList<>();
-        List<Integer> lastTrackingEncVels = new ArrayList<>();
+
 
         // TODO: if desired, use setLocalizer() to change the localization method
         //setLocalizer(new StandardTrackingWheelLocalizer(hardwareMap)), lastTrackingEncPositions, lastTrackingEncVels));
@@ -141,7 +141,7 @@ public class SampleMecanumDrive extends MecanumDrive {
 
 
 // Initialize StandardTrackingWheelLocalizer with the required arguments
-        setLocalizer(new StandardTrackingWheelLocalizer(hardwareMap, lastTrackingEncPositions, lastTrackingEncVels));
+        setLocalizer(new StandardTrackingWheelLocalizer(hardwareMap, lastEncPositions, lastEncVels));
 
 
 // TODO: if desired, use setLocalizer() to change the localization method
