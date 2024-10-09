@@ -141,7 +141,7 @@ public class SampleMecanumDrive extends MecanumDrive {
 
 
 // Initialize StandardTrackingWheelLocalizer with the required arguments
-        setLocalizer(new StandardTrackingWheelLocalizer(hardwareMap, convertToIntegerList(getWheelPositions()), convertToIntegerList(getWheelVelocities())));
+        setLocalizer(new StandardTrackingWheelLocalizer(hardwareMap, lastTrackingEncPositions, lastTrackingEncVels));
 
 
 // TODO: if desired, use setLocalizer() to change the localization method
