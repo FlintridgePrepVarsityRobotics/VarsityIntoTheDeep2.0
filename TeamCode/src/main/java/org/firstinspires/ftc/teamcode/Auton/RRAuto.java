@@ -40,7 +40,7 @@ public class RRAuto extends LinearOpMode {
 
 
         }
-        waitForStart(); // wait for play button to be pressed
+        waitForStart();// wait for play button to be pressed
         // autonomous happens here
        /*
         Pose2d startPose = new Pose2d(0, 0, Math.toRadians(0));
