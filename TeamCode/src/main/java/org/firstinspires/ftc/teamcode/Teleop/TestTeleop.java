@@ -13,7 +13,7 @@ public class TestTeleop extends LinearOpMode {
     @Override
     public void runOpMode() throws InterruptedException {
         robot.init(hardwareMap);
-        double speed = .8;
+        double speed = .7;
         int rightPosition = 0;
         int leftPosition = 0;
         int noU = -8000;
