@@ -106,11 +106,11 @@ public class TestTeleop extends LinearOpMode {
             }
 
             if (gamepad1.x) {
-                robot.claw.setPosition(.415);
+                robot.claw.setPosition(.415); //
             }
 
             if (gamepad1.y) {
-                robot.wrist.setPosition(.73); //
+                robot.wrist.setPosition(.66); //.73
             }
 
             if (gamepad1.right_bumper)
@@ -146,8 +146,8 @@ public class TestTeleop extends LinearOpMode {
                 robot.rightLift.setPower(.8);
                 robot.leftLift.setPower(.8);
 
-                robot.rightLift.setTargetPosition(-2100);
-                robot.leftLift.setTargetPosition(-2100);
+                robot.rightLift.setTargetPosition(-2020);
+                robot.leftLift.setTargetPosition(-2020);
                 sleep(750);
             }
 
@@ -217,8 +217,8 @@ public class TestTeleop extends LinearOpMode {
                 robot.rightLift.setPower(.8);
                 robot.leftLift.setPower(.8);
 
-                robot.rightLift.setTargetPosition(-1200);
-                robot.leftLift.setTargetPosition(-1200);
+                robot.rightLift.setTargetPosition(-850);
+                robot.leftLift.setTargetPosition(-850);
                 sleep(750);
             }
             if (gamepad1.dpad_up){
