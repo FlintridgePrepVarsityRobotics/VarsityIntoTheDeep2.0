@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode.Auton;
 import com.acmerobotics.roadrunner.geometry.Pose2d;
+import com.acmerobotics.roadrunner.geometry.Vector2d;
 import com.acmerobotics.roadrunner.localization.Localizer;
 import org.firstinspires.ftc.teamcode.drive.SampleMecanumDrive;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
@@ -59,8 +60,8 @@ import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import org.firstinspires.ftc.teamcode.util.Encoder;
 
-@Autonomous(name = "OdometryAuto")
-public class OdometryAuto extends LinearOpMode {
+@Autonomous(name = "FullRRAuto")
+public class FullRRAuto extends LinearOpMode {
     private SampleMecanumDrive drive;
 
     public HWMapBasic robot = new HWMapBasic();
@@ -100,35 +101,27 @@ public class OdometryAuto extends LinearOpMode {
         robot.lArm.setPosition(.07);
         sleep(500);
 
-        Pose2d startPose = new Pose2d(0, 0, Math.toRadians(0));
+        Pose2d startPose = new Pose2d(0, 10, Math.toRadians(0));
         drive.setPoseEstimate(startPose); // Set the initial pose estimate
 
         Trajectory trajectory1 = drive.trajectoryBuilder(startPose)     //drive forward 1 tile
-                .forward(18)
+                .splineTo(new Vector2d(18, 0), Math.toRadians(0)) //forward
                 .build();
         drive.followTrajectory(trajectory1);
         sleep(500);
 
-    /*    robot.rightLift.setPower(.8);       //lift up above first spec bar
-        robot.leftLift.setPower(.8);
-        robot.rightLift.setTargetPosition(-1600);//-850
-        robot.leftLift.setTargetPosition(-1600);//-850
-        sleep(1000);*/
 
-        // wrist midpoint :)
-   /*     robot.wrist.setPosition(.66); //.65, .73
-        sleep(250);*/
 
         robot.rightLift.setPower(.8);       //lift to high spec scoring height
         robot.leftLift.setPower(.8);
-        robot.rightLift.setTargetPosition(-5300);//-2020
-        robot.leftLift.setTargetPosition(-5300);//-2020
+        robot.rightLift.setTargetPosition(-5400);//-2020
+        robot.leftLift.setTargetPosition(-5400);//-2020
         sleep(3300);
 
         Pose2d startPose2 = new Pose2d(18, 0, Math.toRadians(0));       //drive forward to submersible structure
         drive.setPoseEstimate(startPose2);
         Trajectory trajectory2 = drive.trajectoryBuilder(startPose2)
-                .forward(7.6)
+                .forward(7.8)
                 .build();
         drive.followTrajectory(trajectory2);
         sleep(1000);
@@ -138,25 +131,110 @@ public class OdometryAuto extends LinearOpMode {
         robot.rightLift.setTargetPosition(-6880);//-2020
         robot.leftLift.setTargetPosition(-6880);//-2020
         sleep(3300);
-/*        robot.wrist.setPosition(.7); //.768
-        sleep(250);*/
-
-       /* Pose2d startPose3 = new Pose2d(22, 0, Math.toRadians(0));       //drive backward from submersible structure
-        drive.setPoseEstimate(startPose3);
-        Trajectory trajectory3 = drive.trajectoryBuilder(startPose3)
-                .forward(-5)
-                .build();
-        drive.followTrajectory(trajectory3);
-        sleep(250);*/
 
         robot.claw.setPosition(.415);
         sleep(250);
 
         robot.rightLift.setPower(.8);       //lift to 0
         robot.leftLift.setPower(.8);
-        robot.rightLift.setTargetPosition(0);
-        robot.leftLift.setTargetPosition(0);
+        robot.rightLift.setTargetPosition(10);
+        robot.leftLift.setTargetPosition(10);
         sleep(3800);
+
+        Pose2d startPose3 = new Pose2d(25.8, 0, Math.toRadians(0));       //drive forward to submersible structure
+        drive.setPoseEstimate(startPose3);
+        Trajectory trajectory3 = drive.trajectoryBuilder(startPose2)
+                .back(5.8)
+                .build();
+        drive.followTrajectory(trajectory3);
+        sleep(500);
+
+        Pose2d startPose4 = new Pose2d(20, 0, Math.toRadians(0));       //drive forward to submersible structure
+        drive.setPoseEstimate(startPose4);
+        Trajectory trajectory4 = drive.trajectoryBuilder(startPose2)
+                .strafeRight(24)
+                .build();
+        drive.followTrajectory(trajectory3);
+        sleep(500);
+
+        Pose2d startPose5 = new Pose2d(20, 24, Math.toRadians(0));       //drive forward to submersible structure
+        drive.setPoseEstimate(startPose5);
+        Trajectory trajectory5 = drive.trajectoryBuilder(startPose2)
+                .splineTo(new Vector2d(50, 24), Math.toRadians(0)) //forward
+                .splineToConstantHeading(new Vector2d(50,36 ), Math.toRadians(0)) //strafe
+                .splineTo(new Vector2d(5, 36), Math.toRadians(0)) //back
+                .splineTo(new Vector2d(50, 36), Math.toRadians(0)) //forward
+                .splineToConstantHeading(new Vector2d(50,43 ), Math.toRadians(0)) //strafe
+                .splineTo(new Vector2d(5, 43), Math.toRadians(0)) //back
+                .splineTo(new Vector2d(50, 43), Math.toRadians(0)) //forward
+                .splineToConstantHeading(new Vector2d(50,50 ), Math.toRadians(0)) //strafe
+                .splineTo(new Vector2d(5, 59), Math.toRadians(0)) //back
+                .splineTo(new Vector2d(40, 38), Math.toRadians(0)) //forward
+
+                .build();
+        drive.followTrajectory(trajectory5);
+        sleep(500);
+        drive.turn(Math.toRadians(180));
+
+        Pose2d startPose6 = new Pose2d(40, 38, Math.toRadians(0));       //drive forward to submersible structure
+        drive.setPoseEstimate(startPose6);
+        Trajectory trajectory6 = drive.trajectoryBuilder(startPose2)
+                .splineTo(new Vector2d(3, 38), Math.toRadians(0)) //forward
+                .build();
+        drive.followTrajectory(trajectory6);
+        sleep(500);
+
+        //lift and claw
+        robot.claw.setPosition(.73);
+        robot.rightLift.setPower(.8);       //lift to 0
+        robot.leftLift.setPower(.8);
+        robot.rightLift.setTargetPosition(-1000);
+        robot.leftLift.setTargetPosition(-1000);
+        sleep(1000);
+        robot.claw.setPosition(.23);
+
+        Pose2d startPose7 = new Pose2d(3, 38, Math.toRadians(0));       //drive forward to submersible structure
+        drive.setPoseEstimate(startPose7);
+        Trajectory trajectory7 = drive.trajectoryBuilder(startPose2)
+                .splineTo(new Vector2d(10, 38), Math.toRadians(0)) //back
+                .splineTo(new Vector2d(18, 0), Math.toRadians(0))
+                .build();
+        drive.followTrajectory(trajectory7);
+        sleep(500);
+        drive.turn(Math.toRadians(180));
+        //lift
+        robot.rightLift.setPower(.8);       //lift to high spec scoring height
+        robot.leftLift.setPower(.8);
+        robot.rightLift.setTargetPosition(-700);//-2020
+        robot.leftLift.setTargetPosition(-7000);//-2020
+        sleep(3300);
+        drive.followTrajectory(trajectory2);
+        //lift
+        robot.rightLift.setPower(.8);       //lift to high spec scoring height
+        robot.leftLift.setPower(.8);
+        robot.rightLift.setTargetPosition(-6600);//-2020
+        robot.leftLift.setTargetPosition(-6600);//-2020
+        sleep(3300);
+
+        robot.claw.setPosition(.415);
+        sleep(250);
+
+        robot.rightLift.setPower(.8);       //lift to 0
+        robot.leftLift.setPower(.8);
+        robot.rightLift.setTargetPosition(10);
+        robot.leftLift.setTargetPosition(10);
+        sleep(3800);
+        drive.followTrajectory(trajectory3);
+
+        Pose2d startPose8 = new Pose2d(20, 0, Math.toRadians(0));       //drive forward to submersible structure
+        drive.setPoseEstimate(startPose8);
+        Trajectory trajectory8 = drive.trajectoryBuilder(startPose2)
+                .lineTo(new Vector2d(5, 48))
+                .build();
+        drive.followTrajectory(trajectory8);
+        sleep(500);
+
+
 
         drive.update(); // Updates the localizer within SampleMecanumDrive
 

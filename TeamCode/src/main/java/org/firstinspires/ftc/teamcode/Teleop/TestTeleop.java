@@ -18,6 +18,10 @@ public class TestTeleop extends LinearOpMode {
         int leftPosition = 0;
         int noU = -8000;
         int[] positions;
+        robot.fRightWheel.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        robot.fLeftWheel.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        robot.bRightWheel.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        robot.bLeftWheel.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
         // init motor pos and encoder
         robot.rightLift.setTargetPosition(0);
@@ -40,7 +44,7 @@ public class TestTeleop extends LinearOpMode {
         while (opModeIsActive()) {
             boolean aButtonHeld = false;
             double y = -gamepad1.left_stick_y; // Remember, this is reversed!
-            double x = gamepad1.left_stick_x*1; // Counteract imperfect strafing
+            double x = gamepad1.left_stick_x*1.1; // Counteract imperfect strafing
             double rx = gamepad1.right_stick_x*.7;
             // Denominator is the largest motor power (absolute value) or 1
             // This ensures all the powers maintain the same ratio, but only when
