@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode.Auton;
 
+import com.acmerobotics.roadrunner.geometry.Vector2d;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
@@ -98,50 +99,59 @@ public class RRTest extends LinearOpMode {
 
 // Trajectory 1: Move forward 60 inches
         Trajectory trajectory1 = drive.trajectoryBuilder(startPose)
-                .forward(60)
+                .forward(20)
                 .build();
-        drive.followTrajectory(trajectory1);
-        sleep(1000);
+//20, 0
 
 // Update the pose estimate
         Pose2d currentPose = drive.getPoseEstimate();
+        telemetry.addData("position", currentPose);
+        telemetry.update();
 
-// Trajectory 2: Strafe left 36 inches
-        Trajectory trajectory2 = drive.trajectoryBuilder(currentPose)
-                .strafeLeft(36)
+        Trajectory trajectory2 = drive.trajectoryBuilder(trajectory1.end())
+                .forward(7)
                 .build();
-        drive.followTrajectory(trajectory2);
+//27,0
+        Trajectory trajectory3 = drive.trajectoryBuilder(trajectory2.end())
+                .splineToConstantHeading(new Vector2d(27, -26), Math.toRadians(0))
+                .splineToConstantHeading(new Vector2d(60, -26), Math.toRadians(0))
+                .splineToConstantHeading(new Vector2d(60, -36), Math.toRadians(0))
+                .splineToConstantHeading(new Vector2d(16, -36), Math.toRadians(0))
+                .splineToConstantHeading(new Vector2d(60, -36), Math.toRadians(0))
+                .splineToConstantHeading(new Vector2d(60, -46), Math.toRadians(0))
+                .splineToConstantHeading(new Vector2d(20, -44), Math.toRadians(0))
+                .splineToConstantHeading(new Vector2d(60, -46), Math.toRadians(0))
+                .splineToConstantHeading(new Vector2d(60, -56), Math.toRadians(0))
+                .splineToConstantHeading(new Vector2d(20, -56), Math.toRadians(0))
+                .splineToConstantHeading(new Vector2d(32, -30), Math.toRadians(0))
+
+                .build();
+
+        Trajectory trajectory4 = drive.trajectoryBuilder(trajectory3.end())
+                .forward(27)
+                .build();
+
+        Trajectory trajectory5 = drive.trajectoryBuilder(trajectory4.end())
+                .splineTo(new Vector2d(20, 0), Math.toRadians(0))
+                .build();
+
+        drive.followTrajectory(trajectory1); //20,0
         sleep(1000);
-
-// Update the pose estimate again
-        currentPose = drive.getPoseEstimate();
-
-// Trajectory 3: Move backward 48 inches
-        Trajectory trajectory3 = drive.trajectoryBuilder(currentPose)
-                .back(48)
-                .build();
+        drive.followTrajectory(trajectory2); //27,0
+        sleep(500);
         drive.followTrajectory(trajectory3);
-        sleep(1000);
-
-// Update the pose estimate
-        currentPose = drive.getPoseEstimate();
-
-// Trajectory 4: Strafe right 36 inches
-        Trajectory trajectory4 = drive.trajectoryBuilder(currentPose)
-                .strafeRight(36)
-                .build();
+        drive.turn(Math.toRadians(180));
         drive.followTrajectory(trajectory4);
         sleep(1000);
+        drive.followTrajectory(trajectory5);
+
+
 
 // Update the pose estimate
-        currentPose = drive.getPoseEstimate();
+        telemetry.addData("position", currentPose);
+        telemetry.update();
 
-// Trajectory 5: Move backward 12 inches
-        Trajectory trajectory5 = drive.trajectoryBuilder(currentPose)
-                .back(12)
-                .build();
-        drive.followTrajectory(trajectory5);
-        sleep(1000);
+        sleep(5000);
 
 
 

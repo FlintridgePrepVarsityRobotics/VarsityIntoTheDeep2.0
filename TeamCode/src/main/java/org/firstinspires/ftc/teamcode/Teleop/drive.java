@@ -16,7 +16,7 @@ public class drive extends LinearOpMode {
     public void runOpMode() throws InterruptedException {
         robot.init(hardwareMap);
 
-        double speed = .7;
+        double speed = .85;
 
         waitForStart();
         boolean isSpinning = false;

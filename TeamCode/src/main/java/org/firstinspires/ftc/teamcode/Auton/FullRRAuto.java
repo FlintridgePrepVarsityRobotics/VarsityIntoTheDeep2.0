@@ -108,6 +108,8 @@ public class FullRRAuto extends LinearOpMode {
                 .splineTo(new Vector2d(18, 0), Math.toRadians(0)) //forward
                 .build();
         drive.followTrajectory(trajectory1);
+        telemetry.addLine("traj1");
+        telemetry.update();
         sleep(500);
 
 
