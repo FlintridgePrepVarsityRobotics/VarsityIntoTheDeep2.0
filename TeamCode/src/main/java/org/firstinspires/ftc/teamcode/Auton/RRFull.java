@@ -58,8 +58,8 @@ import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import org.firstinspires.ftc.teamcode.util.Encoder;
 
-@Autonomous(name = "RRTest")
-public class RRTest extends LinearOpMode {
+@Autonomous(name = "RRFull")
+public class RRFull extends LinearOpMode {
     private SampleMecanumDrive drive;
 
     public HWMapBasic robot = new HWMapBasic();
@@ -69,6 +69,9 @@ public class RRTest extends LinearOpMode {
         //initialize hardware map
         robot.init(hardwareMap);
         drive = new SampleMecanumDrive(hardwareMap);
+        int low = -5300;
+        int high = -6880;
+        int wall = -2000;
 
         int direction = 1;
         int otherDirection = -1;
@@ -99,7 +102,16 @@ public class RRTest extends LinearOpMode {
 
 // Trajectory 1: Move forward 60 inches
         Trajectory trajectory1 = drive.trajectoryBuilder(startPose)
-                .forward(20)
+                .forward(27)
+                .addTemporalMarker(0, () ->{
+                    robot.wrist.setPosition(.53);
+                    robot.rArm.setPosition(.93);
+                    robot.lArm.setPosition(.07);
+                    robot.rightLift.setPower(.8);
+                    robot.leftLift.setPower(.8);
+                    robot.rightLift.setTargetPosition(low);
+                    robot.leftLift.setTargetPosition(low);
+                })
                 .build();
 //20, 0
 
@@ -113,6 +125,12 @@ public class RRTest extends LinearOpMode {
                 .build();
 //27,0
         Trajectory trajectory3 = drive.trajectoryBuilder(trajectory2.end())
+                .addDisplacementMarker(() -> {
+                    robot.rightLift.setPower(.8);
+                    robot.leftLift.setPower(.8);
+                    robot.rightLift.setTargetPosition(wall);
+                    robot.leftLift.setTargetPosition(wall);
+                })
                 .splineToConstantHeading(new Vector2d(27, -26), Math.toRadians(0))
                 .splineToConstantHeading(new Vector2d(60, -26), Math.toRadians(0))
                 .splineToConstantHeading(new Vector2d(60, -36), Math.toRadians(0))
@@ -128,26 +146,62 @@ public class RRTest extends LinearOpMode {
                 .build();
 
         Trajectory trajectory4 = drive.trajectoryBuilder(trajectory3.end())
-                .back(27)
+                .addDisplacementMarker(() -> {
+                    robot.wrist.setPosition(.53);
+                    robot.rArm.setPosition(.07);
+                    robot.lArm.setPosition(.93);
+                })
+                .back(22)
                 .build();
 
         Trajectory trajectory5 = drive.trajectoryBuilder(trajectory4.end())
+                .addDisplacementMarker(() -> {
+                    robot.wrist.setPosition(.53);
+                    robot.rArm.setPosition(.07);
+                    robot.lArm.setPosition(.93);
+                    robot.rightLift.setPower(.8);
+                    robot.leftLift.setPower(.8);
+                    robot.rightLift.setTargetPosition(low);
+                    robot.leftLift.setTargetPosition(low);
+                })
                 .splineToConstantHeading(new Vector2d(20, 0), Math.toRadians(0))
                 .build();
 
         Trajectory trajectory6 = drive.trajectoryBuilder(trajectory5.end())
-                        .splineToConstantHeading(new Vector2d(15,40), Math.toRadians(0))
-                                .build();
+                .addDisplacementMarker(() -> {
+                    robot.rightLift.setPower(.8);
+                    robot.leftLift.setPower(.8);
+                    robot.rightLift.setTargetPosition(5);
+                    robot.leftLift.setTargetPosition(5);
+                })
+                .splineToConstantHeading(new Vector2d(15,40), Math.toRadians(0))
+                .build();
 
         drive.followTrajectory(trajectory1); //20,0
-        sleep(1000);
-        drive.followTrajectory(trajectory2); //27,0
-        sleep(500);
+       // sleep(1000);
+       // drive.followTrajectory(trajectory2); //27,0
+        robot.rightLift.setPower(.8);
+        robot.leftLift.setPower(.8);
+        robot.rightLift.setTargetPosition(high);
+        robot.leftLift.setTargetPosition(high);
+        sleep(100);
+        robot.claw.setPosition(.75);
+        robot.wrist.setPosition(.825);
+        sleep(100);
         drive.followTrajectory(trajectory3);
         drive.followTrajectory(trajectory4);
-        sleep(1000);
+        sleep(100);
+        robot.claw.setPosition(0);
+        sleep(100);
         drive.followTrajectory(trajectory5);
-        sleep(1000);
+        sleep(100);
+        robot.rightLift.setPower(.8);
+        robot.leftLift.setPower(.8);
+        robot.rightLift.setTargetPosition(high);
+        robot.leftLift.setTargetPosition(high);
+        sleep(100);
+        robot.claw.setPosition(.75);
+        sleep(50);
         drive.followTrajectory(trajectory6);
 
 
@@ -156,7 +210,7 @@ public class RRTest extends LinearOpMode {
         telemetry.addData("position", currentPose);
         telemetry.update();
 
-        sleep(5000);
+
 
 
 
