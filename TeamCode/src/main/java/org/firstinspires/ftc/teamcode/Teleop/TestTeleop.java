@@ -23,7 +23,7 @@ public class TestTeleop extends LinearOpMode {
         robot.bRightWheel.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         robot.bLeftWheel.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
-        // init motor pos and encoder
+        /// init motor pos and encoder
         robot.rightLift.setTargetPosition(0);
         robot.leftLift.setTargetPosition(0);
         robot.rightLift.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
