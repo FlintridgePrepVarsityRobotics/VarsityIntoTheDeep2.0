@@ -23,6 +23,7 @@ import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.IMU;
 import com.qualcomm.robotcore.hardware.PIDFCoefficients;
+import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.hardware.VoltageSensor;
 import com.qualcomm.robotcore.hardware.configuration.typecontainers.MotorConfigurationType;
 
@@ -71,7 +72,14 @@ public class SampleMecanumDrive extends MecanumDrive {
 
     private DcMotorEx leftFront, leftRear, rightRear, rightFront;
     private List<DcMotorEx> motors;
+    public DcMotorEx leftLift = null; // expan hub motor 1
+    public DcMotorEx rightLift = null; // expan hub motor 0
+    public Servo claw = null; // control hub servo 2
+    public Servo wrist = null; // expan hub servo 3
 
+
+    public Servo lArm = null; // control hub servo 0
+    public Servo rArm = null; // expan hub servo 2
     private IMU imu;
     private VoltageSensor batteryVoltageSensor;
 
@@ -107,6 +115,19 @@ public class SampleMecanumDrive extends MecanumDrive {
         leftFront.setDirection(DcMotor.Direction.FORWARD);
         rightRear.setDirection(DcMotor.Direction.REVERSE);
         leftRear.setDirection(DcMotor.Direction.FORWARD);
+        leftLift = hardwareMap.get(DcMotorEx.class, "LL");
+        rightLift = hardwareMap.get(DcMotorEx.class, "RL");
+        claw = hardwareMap.servo.get("Claw");
+        wrist = hardwareMap.servo.get("Wrist");
+        lArm = hardwareMap.servo.get("lArm");
+        rArm = hardwareMap.servo.get("rArm");
+        leftLift.setDirection(DcMotor.Direction.FORWARD);
+        rightLift.setDirection(DcMotor.Direction.REVERSE);
+        leftLift.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        rightLift.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        leftLift.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        rightLift.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+
 
         motors = Arrays.asList(leftFront, leftRear, rightRear, rightFront);
 
@@ -125,7 +146,7 @@ public class SampleMecanumDrive extends MecanumDrive {
         if (RUN_USING_ENCODER && MOTOR_VELO_PID != null) {
             setPIDFCoefficients(DcMotor.RunMode.RUN_USING_ENCODER, MOTOR_VELO_PID);
         }
-
+        Stop();
         // TODO: reverse any motors using DcMotor.setDirection()
 
 
@@ -157,6 +178,19 @@ public class SampleMecanumDrive extends MecanumDrive {
                 follower, HEADING_PID, batteryVoltageSensor,
                 lastEncPositions, lastEncVels, lastTrackingEncPositions, lastTrackingEncVels
         );
+
+    }
+    public void Stop() {
+        rightFront.setPower(0);
+        leftFront.setPower(0);
+        rightRear.setPower(0);
+        leftRear.setPower(0);
+        leftLift.setPower(0);
+        rightLift.setPower(0);
+        claw.setPosition(0);
+        wrist.setPosition(0); //originally .825
+        lArm.setPosition(.475);
+        rArm.setPosition(.525);
     }
 
 

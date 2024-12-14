@@ -61,7 +61,7 @@ public class TestTeleop extends LinearOpMode {
             robot.fRightWheel.setPower(fRightPower * speed);
             robot.bRightWheel.setPower(bRightPower * speed);
 
-            if(Math.abs(ry)>.2 && Math.abs(y)<.1&&Math.abs(x)<.1&&Math.abs(rx)<.1){
+            if(Math.abs(ry)>.1 && Math.abs(y)<.1&&Math.abs(x)<.1&&Math.abs(rx)<.1){
                 robot.fRightWheel.setPower(ry);
                 robot.bLeftWheel.setPower(ry);
             }
@@ -71,8 +71,8 @@ public class TestTeleop extends LinearOpMode {
                 rightPosition += 35;
                 leftPosition += 35;
 
-                robot.rightLift.setPower(.8);
-                robot.leftLift.setPower(.8);
+                robot.rightLift.setPower(.95);
+                robot.leftLift.setPower(.95);
 
                 // If one of them is greater than 0 (out of bound) then set both to zero
                 if(rightPosition > 0 || leftPosition > 0){
@@ -95,8 +95,8 @@ public class TestTeleop extends LinearOpMode {
                 rightPosition -= 30;
                 leftPosition -= 30;
 
-                robot.rightLift.setPower(.8);
-                robot.leftLift.setPower(.8);
+                robot.rightLift.setPower(.95);
+                robot.leftLift.setPower(.95);
                 robot.rightLift.setTargetPosition(rightPosition);
                 robot.leftLift.setTargetPosition(leftPosition);
                 int a = robot.rightLift.getCurrentPosition();
@@ -138,7 +138,7 @@ public class TestTeleop extends LinearOpMode {
 
             if (gamepad1.dpad_left) //pick up specimen from wall
             {
-                robot.wrist.setPosition(.4);
+                robot.wrist.setPosition(.35);
             }
 /*
             else if(gamepad1.dpad_left){ //specimen grab
@@ -155,8 +155,8 @@ public class TestTeleop extends LinearOpMode {
             if(gamepad2.y){
                 telemetry.addLine("Setting slider to zero");
                 telemetry.update();
-                robot.leftLift.setPower(.8);
-                robot.rightLift.setPower(.8);
+                robot.leftLift.setPower(.95);
+                robot.rightLift.setPower(.95);
                 robot.leftLift.setTargetPosition(-2020);
                 robot.rightLift.setTargetPosition(-2020);
 
@@ -175,6 +175,8 @@ public class TestTeleop extends LinearOpMode {
             if (gamepad2.a){
                 telemetry.addLine("Setting slider to zero");
                 telemetry.update();
+                robot.leftLift.setPower(.95);
+                robot.rightLift.setPower(.95);
                 robot.leftLift.setTargetPosition(0);
                 robot.rightLift.setTargetPosition(0);
 
@@ -231,8 +233,8 @@ public class TestTeleop extends LinearOpMode {
             }*/
 
             if (gamepad2.x){
-                robot.rightLift.setPower(.8);
-                robot.leftLift.setPower(.8);
+                robot.rightLift.setPower(.95);
+                robot.leftLift.setPower(.95);
                 telemetry.addLine("Setting slider to zero");
                 telemetry.update();
                 robot.leftLift.setTargetPosition(-850);
@@ -260,24 +262,24 @@ public class TestTeleop extends LinearOpMode {
 
 
             if (gamepad2.dpad_down)
-            {robot.rArm.setPosition(.07); //0 arm out (farthest down)
-                robot.lArm.setPosition(.93); // 1
+            {robot.rArm.setPosition(.0); //0 arm out (farthest down)
+                robot.lArm.setPosition(1); // 1
             }
             if (gamepad2.dpad_left)
-            {robot.rArm.setPosition(.55);   // init pos
-                robot.lArm.setPosition(.45);
+            {robot.rArm.setPosition(.525);   // init pos
+                robot.lArm.setPosition(.475);
             }
 
             if (gamepad2.dpad_up) //arm out for wall spec grab
             {
-                robot.rArm.setPosition(.21);
-                robot.lArm.setPosition(.79);
+                robot.rArm.setPosition(.1);
+                robot.lArm.setPosition(.9);
             }
 
             if (gamepad2.dpad_right)
             {
-                robot.rArm.setPosition(.05); // pos slightly above sample
-                robot.lArm.setPosition(.95); //
+                robot.rArm.setPosition(.065); // pos slightly above sample
+                robot.lArm.setPosition(.935); //
             }
 
 //            if (gamepad2.dpad_up)

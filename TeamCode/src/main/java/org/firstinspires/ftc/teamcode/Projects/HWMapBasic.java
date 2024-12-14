@@ -83,8 +83,8 @@ public class HWMapBasic extends Project {
         leftLift.setPower(0);
         rightLift.setPower(0);
         claw.setPosition(0);
-        wrist.setPosition(0.825); //originally .825
-        lArm.setPosition(.45);
-        rArm.setPosition(.55);
+        wrist.setPosition(0); //originally .825
+        lArm.setPosition(.475);
+        rArm.setPosition(.525);
     }
 }

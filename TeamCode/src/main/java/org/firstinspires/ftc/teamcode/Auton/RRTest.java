@@ -62,13 +62,14 @@ import org.firstinspires.ftc.teamcode.util.Encoder;
 public class RRTest extends LinearOpMode {
     private SampleMecanumDrive drive;
 
-    public HWMapBasic robot = new HWMapBasic();
+    //public HWMapBasic robot = new HWMapBasic();
 
     @Override
     public void runOpMode() throws InterruptedException {
-        ///initialize hardware map
-        robot.init(hardwareMap);
-        drive = new SampleMecanumDrive(hardwareMap);
+        //initialize hardware map
+       //robot.init(hardwareMap);
+        SampleMecanumDrive drive = new SampleMecanumDrive(hardwareMap);
+        drive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
         int direction = 1;
         int otherDirection = -1;
@@ -77,14 +78,14 @@ public class RRTest extends LinearOpMode {
         int leftPosition = 0;
         int noU = -8000;
         int[] positions;
-        robot.rightLift.setTargetPosition(0);
-        robot.leftLift.setTargetPosition(0);
-        robot.rightLift.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        robot.leftLift.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        drive.rightLift.setTargetPosition(0);
+        drive.leftLift.setTargetPosition(0);
+        drive.rightLift.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        drive.leftLift.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
-        telemetry.addLine("" + robot.leftLift.getCurrentPosition());
-        robot.rightLift.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        robot.leftLift.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        telemetry.addLine("" + drive.leftLift.getCurrentPosition());
+        drive.rightLift.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        drive.leftLift.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
 
         while (!isStarted()) {
@@ -153,8 +154,16 @@ public class RRTest extends LinearOpMode {
 
 
 // Update the pose estimate
-        telemetry.addData("position", currentPose);
-        telemetry.update();
+        while (opModeIsActive() && !isStopRequested()) {
+            drive.update();  // Update odometry
+
+            // Optionally, get and display the current pose for debugging
+            Pose2d currenttPose = drive.getPoseEstimate();
+            telemetry.addData("X", currenttPose.getX());
+            telemetry.addData("Y", currenttPose.getY());
+            telemetry.addData("Heading", currenttPose.getHeading());
+            telemetry.update();
+        }
 
         sleep(5000);
 
