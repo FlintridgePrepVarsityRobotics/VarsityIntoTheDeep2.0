@@ -91,7 +91,8 @@ public class TestTeleop extends LinearOpMode {
                 telemetry.update();
             }
             else if (gamepad2.right_bumper&&leftPosition>-8000&&rightPosition>-8000) {
-
+// target: -3750 current: -3850 for max height
+                //-1500, target -1680, scoring -2500
                 rightPosition -= 30;
                 leftPosition -= 30;
 
@@ -136,7 +137,7 @@ public class TestTeleop extends LinearOpMode {
                 robot.wrist.setPosition(0.65);
             }
 
-            if (gamepad1.dpad_left) //pick up specimen from wall
+            if (gamepad1.dpad_left) //scoring
             {
                 robot.wrist.setPosition(.35);
             }
@@ -152,21 +153,23 @@ public class TestTeleop extends LinearOpMode {
             /*if (gamepad1.dpad_down){ //Wrist Down (when arm is flipped, sample grab, 1 or 0)
                 robot.wrist.setPosition(0);
             }*/
-            if(gamepad2.y){
-                telemetry.addLine("Setting slider to zero");
-                telemetry.update();
-                robot.leftLift.setPower(.95);
-                robot.rightLift.setPower(.95);
-                robot.leftLift.setTargetPosition(-2020);
-                robot.rightLift.setTargetPosition(-2020);
-
-                positions = WaitTillTargetReached(50, true);
-                robot.rightLift.setTargetPosition(rightPosition);
-                robot.leftLift.setTargetPosition(leftPosition);
-                rightPosition = positions[0];
-                leftPosition = positions[1];
-                //sleep(750);
-            }
+//            if(gamepad2.y){
+//                telemetry.addLine("Setting slider to zero");
+//                telemetry.update();
+//                robot.leftLift.setPower(.95);
+//                robot.rightLift.setPower(.95);
+//                robot.leftLift.setTargetPosition(-2020);
+//                robot.rightLift.setTargetPosition(-2020);
+//
+//                positions = WaitTillTargetReached(50, true);
+//                rightPosition = positions[0];
+//                leftPosition = positions[1];
+//                robot.rightLift.setTargetPosition(-2020);
+//                robot.leftLift.setTargetPosition(-2020);
+//                rightPosition = positions[0];
+//                leftPosition = positions[1];
+//                //sleep(750);
+//            }
 
 
 
@@ -180,9 +183,12 @@ public class TestTeleop extends LinearOpMode {
                 robot.leftLift.setTargetPosition(0);
                 robot.rightLift.setTargetPosition(0);
 
+
                 positions = WaitTillTargetReached(50, true);
-                robot.rightLift.setTargetPosition(rightPosition);
-                robot.leftLift.setTargetPosition(leftPosition);
+                rightPosition = positions[0];
+                leftPosition = positions[1];
+                robot.rightLift.setTargetPosition(0);
+                robot.leftLift.setTargetPosition(0);
                 rightPosition = positions[0];
                 leftPosition = positions[1];
             }
@@ -237,17 +243,19 @@ public class TestTeleop extends LinearOpMode {
                 robot.leftLift.setPower(.95);
                 telemetry.addLine("Setting slider to zero");
                 telemetry.update();
-                robot.leftLift.setTargetPosition(-850);
-                robot.rightLift.setTargetPosition(-850);
-
+                robot.leftLift.setTargetPosition(-1680);
+                robot.rightLift.setTargetPosition(-1680);
+//-1500, target -1680, scoring -2500
                 positions = WaitTillTargetReached(50, true);
-                robot.rightLift.setTargetPosition(rightPosition);
-                robot.leftLift.setTargetPosition(leftPosition);
+                rightPosition = positions[0];
+                leftPosition = positions[1];
+                robot.rightLift.setTargetPosition(-1680);
+                robot.leftLift.setTargetPosition(-1680);
                 rightPosition = positions[0];
                 leftPosition = positions[1];
                 //sleep(750);
             }
-            if (gamepad1.dpad_up){
+            if (gamepad1.dpad_up){          //pick up spec from wall
                 robot.wrist.setPosition(0.53);
                 //sleep(50);
             }
@@ -262,7 +270,7 @@ public class TestTeleop extends LinearOpMode {
 
 
             if (gamepad2.dpad_down)
-            {robot.rArm.setPosition(.0); //0 arm out (farthest down)
+            {robot.rArm.setPosition(0); //0 arm out (farthest down)
                 robot.lArm.setPosition(1); // 1
             }
             if (gamepad2.dpad_left)
@@ -272,8 +280,8 @@ public class TestTeleop extends LinearOpMode {
 
             if (gamepad2.dpad_up) //arm out for wall spec grab
             {
-                robot.rArm.setPosition(.1);
-                robot.lArm.setPosition(.9);
+                robot.rArm.setPosition(.089);
+                robot.lArm.setPosition(.911);
             }
 
             if (gamepad2.dpad_right)
