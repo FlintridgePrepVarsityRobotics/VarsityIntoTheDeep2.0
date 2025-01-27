@@ -62,12 +62,12 @@ import org.firstinspires.ftc.teamcode.util.Encoder;
 public class RRFull extends LinearOpMode {
     private SampleMecanumDrive drive;
 
-    //public HWMapBasic robot = new HWMapBasic();
+    public HWMapBasic robot = new HWMapBasic();
 
     @Override
     public void runOpMode() throws InterruptedException {
         //initialize hardware map
-      //  robot.init(hardwareMap);
+        robot.init(hardwareMap);
 
         SampleMecanumDrive drive = new SampleMecanumDrive(hardwareMap);
         drive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
@@ -82,14 +82,14 @@ public class RRFull extends LinearOpMode {
         int leftPosition = 0;
         int noU = -8000;
         int[] positions;
-        drive.rightLift.setTargetPosition(0);
-        drive.leftLift.setTargetPosition(0);
-        drive.rightLift.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        drive.leftLift.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        robot.rightLift.setTargetPosition(0);
+        robot.leftLift.setTargetPosition(0);
+        robot.rightLift.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        robot.leftLift.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
-        telemetry.addLine("" + drive.leftLift.getCurrentPosition());
-        drive.rightLift.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        drive.leftLift.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        telemetry.addLine("" + robot.leftLift.getCurrentPosition());
+        robot.rightLift.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        robot.leftLift.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
 
         while (!isStarted()) {
@@ -106,13 +106,13 @@ public class RRFull extends LinearOpMode {
         Trajectory trajectory1 = drive.trajectoryBuilder(startPose)
                 .forward(27)
                 .addTemporalMarker(0, () ->{
-                    drive.wrist.setPosition(.53);
-                    drive.rArm.setPosition(.93);
-                    drive.lArm.setPosition(.07);
-                    drive.rightLift.setPower(.95);
-                    drive.leftLift.setPower(.95);
-                    drive.rightLift.setTargetPosition(low);
-                    drive.leftLift.setTargetPosition(low);
+                    robot.wrist.setPosition(.53);
+                    robot.rArm.setPosition(.93);
+                    robot.lArm.setPosition(.07);
+                    robot.rightLift.setPower(.95);
+                    robot.leftLift.setPower(.95);
+                    robot.rightLift.setTargetPosition(low);
+                    robot.leftLift.setTargetPosition(low);
                 })
                 .build();
 //20, 0
@@ -136,7 +136,7 @@ public class RRFull extends LinearOpMode {
                 .splineToConstantHeading(new Vector2d(16, -36), Math.toRadians(0))
                 .splineToConstantHeading(new Vector2d(60, -36), Math.toRadians(0))
                 .splineToConstantHeading(new Vector2d(60, -46), Math.toRadians(0))
-                .splineToConstantHeading(new Vector2d(20, -44), Math.toRadians(0))
+                .splineToConstantHeading(new Vector2d(20, -46), Math.toRadians(0))
                 .splineToConstantHeading(new Vector2d(60, -46), Math.toRadians(0))
                 .splineToConstantHeading(new Vector2d(60, -56), Math.toRadians(0))
                 .splineToConstantHeading(new Vector2d(20, -56), Math.toRadians(0))
@@ -146,32 +146,32 @@ public class RRFull extends LinearOpMode {
 
         Trajectory trajectory4 = drive.trajectoryBuilder(trajectory3.end())
                 .addDisplacementMarker(() -> {
-                    drive.wrist.setPosition(.65);
-                    drive.rArm.setPosition(.07);
-                    drive.lArm.setPosition(.93);
+                    robot.wrist.setPosition(.65);
+                    robot.rArm.setPosition(.07);
+                    robot.lArm.setPosition(.93);
                 })
                 .back(22)
                 .build();
 
         Trajectory trajectory5 = drive.trajectoryBuilder(trajectory4.end())
                 .addDisplacementMarker(() -> {
-                    drive.wrist.setPosition(.53);
-                    drive.rArm.setPosition(.55);
-                    drive.lArm.setPosition(.45);
-                    drive.rightLift.setPower(.95);
-                    drive.leftLift.setPower(.95);
-                    drive.rightLift.setTargetPosition(low);
-                    drive.leftLift.setTargetPosition(low);
+                    robot.wrist.setPosition(.53);
+                    robot.rArm.setPosition(.55);
+                    robot.lArm.setPosition(.45);
+                    robot.rightLift.setPower(.95);
+                    robot.leftLift.setPower(.95);
+                    robot.rightLift.setTargetPosition(low);
+                    robot.leftLift.setTargetPosition(low);
                 })
                 .splineToConstantHeading(new Vector2d(20, 0), Math.toRadians(0))
                 .build();
 
         Trajectory trajectory6 = drive.trajectoryBuilder(trajectory5.end())
                 .addDisplacementMarker(() -> {
-                    drive.rightLift.setPower(.95);
-                    drive.leftLift.setPower(.95);
-                    drive.rightLift.setTargetPosition(5);
-                    drive.leftLift.setTargetPosition(5);
+                    robot.rightLift.setPower(.95);
+                    robot.leftLift.setPower(.95);
+                    robot.rightLift.setTargetPosition(5);
+                    robot.leftLift.setTargetPosition(5);
                 })
                 .splineToConstantHeading(new Vector2d(15,40), Math.toRadians(0))
                 .build();
@@ -179,27 +179,27 @@ public class RRFull extends LinearOpMode {
         drive.followTrajectory(trajectory1); //20,0
        // sleep(1000);
        // drive.followTrajectory(trajectory2); //27,0
-        drive.rightLift.setPower(.95);
-        drive.leftLift.setPower(.95);
-        drive.rightLift.setTargetPosition(high);
-        drive.leftLift.setTargetPosition(high);
+        robot.rightLift.setPower(.95);
+        robot.leftLift.setPower(.95);
+        robot.rightLift.setTargetPosition(high);
+        robot.leftLift.setTargetPosition(high);
         sleep(100);
-        drive.claw.setPosition(.75);
-        drive.wrist.setPosition(.825);
+        robot.claw.setPosition(.75);
+        robot.wrist.setPosition(.825);
         sleep(100);
         drive.followTrajectory(trajectory3);
         drive.followTrajectory(trajectory4);
         sleep(100);
-        drive.claw.setPosition(0);
+        robot.claw.setPosition(0);
         sleep(100);
         drive.followTrajectory(trajectory5);
         sleep(100);
-        drive.rightLift.setPower(.95);
-        drive.leftLift.setPower(.95);
-        drive.rightLift.setTargetPosition(high);
-        drive.leftLift.setTargetPosition(high);
+        robot.rightLift.setPower(.95);
+        robot.leftLift.setPower(.95);
+        robot.rightLift.setTargetPosition(high);
+        robot.leftLift.setTargetPosition(high);
         sleep(100);
-        drive.claw.setPosition(.75);
+        robot.claw.setPosition(.75);
         sleep(50);
         drive.followTrajectory(trajectory6);
 

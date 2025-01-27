@@ -54,8 +54,8 @@ import static org.firstinspires.ftc.teamcode.drive.DriveConstants.kV;
  */
 @Config
 public class SampleMecanumDrive extends MecanumDrive {
-    public static PIDCoefficients TRANSLATIONAL_PID = new PIDCoefficients(6, 0, 0);
-    public static PIDCoefficients HEADING_PID = new PIDCoefficients(6, 0, 0);
+    public static PIDCoefficients TRANSLATIONAL_PID = new PIDCoefficients(8, 0, 0);
+    public static PIDCoefficients HEADING_PID = new PIDCoefficients(8, 0, 0);
 
     public static double LATERAL_MULTIPLIER = 1;
 
@@ -155,9 +155,9 @@ public class SampleMecanumDrive extends MecanumDrive {
         //setLocalizer(new StandardTrackingWheelLocalizer(hardwareMap)), lastTrackingEncPositions, lastTrackingEncVels));
         // Assuming you have the hardwareMap, lastTrackingEncPositions, and lastTrackingEncVels ready
         //List<Integer> lastTrackingEncPositions = new ArrayList<>();
-        // List<Integer> lastTrackingEncVels = new ArrayList<>();
+       // List<Integer> lastTrackingEncVels = new ArrayList<>();
 
-        // setLocalizer(new StandardTrackingWheelLocalizer(hardwareMap, lastTrackingEncPositions, lastTrackingEncVels));
+       // setLocalizer(new StandardTrackingWheelLocalizer(hardwareMap, lastTrackingEncPositions, lastTrackingEncVels));
         /* About line 131 in SampleMecanumDrive.java */
 
         // Assuming you're getting the encoder positions and velocities from your hardware
@@ -172,7 +172,7 @@ public class SampleMecanumDrive extends MecanumDrive {
 // TODO: if desired, use setLocalizer() to change the localization method
 // for instance, setLocalizer(new ThreeTrackingWheelLocalizer(...));
 
-        // setLocalizer(new StandardTrackingWheelLocalizer(hardwareMap));
+       // setLocalizer(new StandardTrackingWheelLocalizer(hardwareMap));
 
         trajectorySequenceRunner = new TrajectorySequenceRunner(
                 follower, HEADING_PID, batteryVoltageSensor,

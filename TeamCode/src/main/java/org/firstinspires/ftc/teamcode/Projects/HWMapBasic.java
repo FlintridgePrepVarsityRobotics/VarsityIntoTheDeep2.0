@@ -27,6 +27,8 @@ public class HWMapBasic extends Project {
     public Servo rBar = null; // expan hub servo 1
     public Servo lArm = null; // control hub servo 0
     public Servo rArm = null; // expan hub servo 2
+    public Servo rDiff = null;
+    public Servo lDiff = null;
     public WebcamName camera = null;
 
     //@Override
@@ -44,6 +46,8 @@ public class HWMapBasic extends Project {
         rBar = hwMap.servo.get("rBar");
         lArm = hwMap.servo.get("lArm");
         rArm = hwMap.servo.get("rArm");
+        lDiff = hwMap.servo.get("lDiff");
+        rDiff = hwMap.servo.get("rDiff");
 
         // Set Direction
         fRightWheel.setDirection(DcMotor.Direction.REVERSE);
@@ -84,7 +88,9 @@ public class HWMapBasic extends Project {
         rightLift.setPower(0);
         claw.setPosition(0);
         wrist.setPosition(0); //originally .825
-        lArm.setPosition(.475);
-        rArm.setPosition(.525);
+        lArm.setPosition(0);
+        rArm.setPosition(0);
+        rDiff.setPosition(.5);
+        lDiff.setPosition(.5);
     }
 }

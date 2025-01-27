@@ -47,7 +47,7 @@ public class DriveConstants {
      */
     public static double WHEEL_RADIUS = 1.4763; // in  2.95276
     public static double GEAR_RATIO = 1.73333333333333333333333; // output (wheel) speed / input (motor) speed  26/15
-    public static double TRACK_WIDTH = 12.3; // in
+    public static double TRACK_WIDTH = 13; // in
 
     /*
      * These are the feedforward parameters used to model the drive motor behavior. If you are using
@@ -55,10 +55,9 @@ public class DriveConstants {
      * motor encoders or have elected not to use them for velocity control, these values should be
      * empirically tuned.
      */
-
-    public static double kV = .0081; //..0208 12v/theoretical free speed or 1/max vel .0081
-    public static double kA = .0027; //0.0027
-    public static double kStatic = .16545; //.16545
+    public static double kV = .0081;
+    public static double kA = 0.0027;
+    public static double kStatic = .16545;
 
     /*
      * These values are used to generate the trajectories for you robot. To ensure proper operation,
@@ -99,9 +98,9 @@ public class DriveConstants {
      * A documented case of a similar error which served as an impetus for this reasoning can be found here:
      * https://github.com/acmerobotics/road-runner-quickstart/issues/91
      */
-    public static double MAX_VEL = 60; //71.1793920016187
-    public static double MAX_ACCEL = 90; //71.1793920016187
-    public static double MAX_ANG_VEL = Math.toRadians(454.198911); //454.198911
+    public static double MAX_VEL = 30; //71.1793920016187
+    public static double MAX_ACCEL = 30; //71.1793920016187
+    public static double MAX_ANG_VEL = Math.toRadians(454.198911);
     public static double MAX_ANG_ACCEL = Math.toRadians(360);
 
 
