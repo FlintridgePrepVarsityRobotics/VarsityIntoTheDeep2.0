@@ -344,15 +344,15 @@ public class TestTeleop extends LinearOpMode {
                 robot.lArm.setPosition(1);
             }
 
-//            if (gamepad2.dpad_right)
-//            {
-//                robot.rArm.setPosition(.065); // pos slightly above sample
-//                robot.lArm.setPosition(.935); //
-//            }
+            if (gamepad2.dpad_right)
+            {
+                robot.rBar.setPosition(0); // pos slightly above sample
+                robot.lBar.setPosition(0); //
+            }
 
-//            if (gamepad2.dpad_up)
-//            {robot.lBar.setPosition(0.5);
-//                robot.rBar.setPosition(0.5);}
+            if (gamepad2.dpad_up)
+            {robot.lBar.setPosition(0.5);
+                robot.rBar.setPosition(0.5);}
 
         }
     }
